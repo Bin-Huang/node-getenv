@@ -1,4 +1,4 @@
-export function _getNumEnv<T>(name: string, defaults: T): number | T {
+export function getEnvNum<T>(name: string, defaults: T): number | T {
   const v = process.env[name]
   if (!v) {
     return defaults
@@ -7,12 +7,12 @@ export function _getNumEnv<T>(name: string, defaults: T): number | T {
   return Object.is(n, NaN) ? defaults : n
 }
 
-export function _getStrEnv<T>(name: string, defaults: T): string | T {
+export function getEnvStr<T>(name: string, defaults: T): string | T {
   const v = process.env[name]
   return v ? v : defaults
 }
 
-export function _getBoolEnv<T>(name: string, defaults: T): boolean | T {
+export function getEnvBool<T>(name: string, defaults: T): boolean | T {
   const v = process.env[name]
   if (!v) {
     return defaults
