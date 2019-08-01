@@ -1,0 +1,16 @@
+{
+  "name": "node-getenv",
+  "version": "1.0.0",
+  "description": "Getenv in nodejs.",
+  "main": "./dist/src/index.js",
+  "scripts": {
+    "compile": "tsc",
+    "test": "ava"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^12.6.8",
+    "ava": "^2.2.0"
+  }
+}
