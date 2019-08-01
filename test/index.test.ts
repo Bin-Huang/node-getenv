@@ -1,73 +1,83 @@
 import test from 'ava'
 import { getEnvBool, getEnvNum, getEnvStr } from '../src/index'
 
-let preEnv = {}
-test.before(() => {
-  preEnv = process.env
-})
-test.afterEach(() => {
-  process.env = preEnv
-})
+test.serial('Test function getEnvNum', t => {
+  const key = 'TEST_GET_ENV_NUM'
 
-test.serial('Test function _getNumEnv', t => {
-  process.env.SETTING_TEST = '2.4'
-  t.is(getEnvNum('SETTING_TEST', null), 2.4)
+  t.is(getEnvNum(key), undefined)
+  t.is(getEnvNum(key, 2), 2)
 
-  process.env.SETTING_TEST = '0'
-  t.is(getEnvNum('SETTING_TEST', null), 0)
+  process.env[key] = '1'
+  t.is(getEnvNum(key), 1)
+  t.is(getEnvNum(key, 2), 1)
 
-  process.env.SETTING_TEST = ''
-  t.is(getEnvNum('SETTING_TEST', 100), 100)
+  process.env[key] = '0'
+  t.is(getEnvNum(key), 0)
+  t.is(getEnvNum(key, 2), 0)
 
-  process.env.SETTING_TEST = undefined
-  t.is(getEnvNum('SETTING_TEST', 100), 100)
+  process.env[key] = 'other_value'
+  t.is(getEnvNum(key), undefined)
+  t.is(getEnvNum(key, 2), 2)
 })
 
-test.serial('Test function _getStrEnv', t => {
-  process.env.SETTING_TEST = 'hello'
-  t.is(getEnvStr('SETTING_TEST', null), 'hello')
+test.serial('Test function getEnvStr', t => {
+  const key = 'TEST_GET_ENV_STR'
 
-  process.env.SETTING_TEST = ''
-  t.is(getEnvStr('SETTING_TEST', null), null)
+  t.is(getEnvStr(key), undefined)
+  t.is(getEnvStr(key, 'a'), 'a')
+
+  process.env[key] = 'b'
+  t.is(getEnvStr(key), 'b')
+  t.is(getEnvStr(key, 'a'), 'b')
 })
 
-test.serial('Test function _getBoolEnv', t => {
-  process.env.SETTING_TEST = 'true'
-  t.is(getEnvBool('SETTING_TEST', null), true)
+test.serial('Test function getEnvBool', t => {
+  const key = 'TEST_GET_ENV_BOOL'
 
-  process.env.SETTING_TEST = 'Open'
-  t.is(getEnvBool('SETTING_TEST', null), true)
+  t.is(getEnvBool(key), undefined)
+  t.is(getEnvBool(key, true), true)
 
-  process.env.SETTING_TEST = 'YES'
-  t.is(getEnvBool('SETTING_TEST', null), true)
+  process.env[key] = 'true'
+  t.is(getEnvBool(key), true)
+  t.is(getEnvBool(key, false), true)
 
-  process.env.SETTING_TEST = 'T'
-  t.is(getEnvBool('SETTING_TEST', null), true)
+  process.env[key] = 'Open'
+  t.is(getEnvBool(key), true)
+  t.is(getEnvBool(key, false), true)
 
-  process.env.SETTING_TEST = 'y'
-  t.is(getEnvBool('SETTING_TEST', null), true)
+  process.env[key] = 'YES'
+  t.is(getEnvBool(key), true)
+  t.is(getEnvBool(key, false), true)
 
-  process.env.SETTING_TEST = 'false'
-  t.is(getEnvBool('SETTING_TEST', null), false)
+  process.env[key] = 'T'
+  t.is(getEnvBool(key), true)
+  t.is(getEnvBool(key, false), true)
 
-  process.env.SETTING_TEST = 'CLOSE'
-  t.is(getEnvBool('SETTING_TEST', null), false)
+  process.env[key] = 'y'
+  t.is(getEnvBool(key), true)
+  t.is(getEnvBool(key, false), true)
 
-  process.env.SETTING_TEST = 'no'
-  t.is(getEnvBool('SETTING_TEST', null), false)
+  process.env[key] = 'false'
+  t.is(getEnvBool(key), false)
+  t.is(getEnvBool(key, true), false)
 
-  process.env.SETTING_TEST = 'f'
-  t.is(getEnvBool('SETTING_TEST', null), false)
+  process.env[key] = 'CLOSE'
+  t.is(getEnvBool(key), false)
+  t.is(getEnvBool(key, true), false)
 
-  process.env.SETTING_TEST = 'n'
-  t.is(getEnvBool('SETTING_TEST', null), false)
+  process.env[key] = 'no'
+  t.is(getEnvBool(key), false)
+  t.is(getEnvBool(key, true), false)
 
-  process.env.SETTING_TEST = undefined
-  t.is(getEnvBool('SETTING_TEST', true), true)
+  process.env[key] = 'f'
+  t.is(getEnvBool(key), false)
+  t.is(getEnvBool(key, true), false)
 
-  process.env.SETTING_TEST = ''
-  t.is(getEnvBool('SETTING_TEST', true), true)
+  process.env[key] = 'n'
+  t.is(getEnvBool(key), false)
+  t.is(getEnvBool(key, true), false)
 
-  process.env.SETTING_TEST = 'other_value'
-  t.is(getEnvBool('SETTING_TEST', false), false)
+  process.env[key] = 'other_value'
+  t.is(getEnvBool(key), undefined)
+  t.is(getEnvBool(key, true), true)
 })

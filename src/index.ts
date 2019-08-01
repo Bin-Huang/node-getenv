@@ -1,20 +1,29 @@
-export function getEnvNum<T>(name: string, defaults: T): number | T {
+export function getEnvNum(name: string): number | undefined
+export function getEnvNum(name: string, defaults: number): number
+export function getEnvNum(name: string, defaults?: number): number | undefined {
   const v = process.env[name]
-  if (!v) {
+  if (v === undefined) {
     return defaults
   }
   const n = Number(v)
   return Object.is(n, NaN) ? defaults : n
 }
 
-export function getEnvStr<T>(name: string, defaults: T): string | T {
+export function getEnvStr(name: string): string | undefined
+export function getEnvStr(name: string, defaults: string): string
+export function getEnvStr(name: string, defaults?: string): string | undefined {
   const v = process.env[name]
-  return v ? v : defaults
+  if (v === undefined) {
+    return defaults
+  }
+  return v
 }
 
-export function getEnvBool<T>(name: string, defaults: T): boolean | T {
+export function getEnvBool(name: string): boolean | undefined
+export function getEnvBool(name: string, defaults: boolean): boolean
+export function getEnvBool(name: string, defaults?: boolean): boolean | undefined {
   const v = process.env[name]
-  if (!v) {
+  if (v === undefined) {
     return defaults
   }
   switch (v.toUpperCase()) {
@@ -25,7 +34,6 @@ export function getEnvBool<T>(name: string, defaults: T): boolean | T {
     case 'T':
     case 'Y':
       return true
-
     case 'FALSE':
     case 'NO':
     case 'OFF':
@@ -33,7 +41,6 @@ export function getEnvBool<T>(name: string, defaults: T): boolean | T {
     case 'F':
     case 'N':
       return false
-
     default:
       return defaults
   }
