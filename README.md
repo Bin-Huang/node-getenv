@@ -26,13 +26,13 @@ Get environment variate in number type.
 
 If the environment variate is undefined or not a valid number, return the default value if possible.
 
-**getEnvStr**
+**getEnvStr(key, defaults)**
 
 Get environment variate in string type.
 
 If the environment variate is undefined, return the default value if possible.
 
-**getEnvBool**
+**getEnvBool(key, defaults)**
 
 Get environment variate in boolean type, supported values **withou case sensitive**:
 
