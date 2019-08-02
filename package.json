@@ -1,17 +1,18 @@
 {
   "name": "node-getenv",
-  "version": "1.1.0",
+  "author": "Bin Huang(tohuangbin@gmail.com)",
+  "version": "1.2.0",
   "description": "Just `Getenv()` in nodejs.",
   "repository": "Bin-Huang/node-getenv",
   "homepage": "https://github.com/Bin-Huang/node-getenv",
 	"keywords": [ "getenv", "env", "nodejs" ],
+  "license": "MIT",
   "main": "./dist/src/index.js",
+  "types": "./dist/src/index.d.ts",
   "scripts": {
-    "compile": "tsc",
+    "compile": "rm -rf dist && tsc",
     "test": "ava"
   },
-  "author": "Bin Huang(tohuangbin@gmail.com)",
-  "license": "MIT",
   "devDependencies": {
     "@types/node": "^12.6.8",
     "ava": "^2.2.0"

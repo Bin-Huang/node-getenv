@@ -5,7 +5,7 @@
     "rootDir": "./",
     "module": "commonjs",
     "sourceMap": true,
-    "declaration": false,
+    "declaration": true,
     "target": "es2017",
     "strictNullChecks": true,
     "typeRoots": ["node_modules/@types"],
