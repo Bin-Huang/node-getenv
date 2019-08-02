@@ -42,5 +42,6 @@ Get environment variate in boolean type, supported values **withou case sensitiv
 
 If the environment variate is undefined or unsupported, return the default value if possible.
 
+---------------------------------------
 
 **License**: MIT
