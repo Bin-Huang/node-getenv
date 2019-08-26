@@ -1,4 +1,4 @@
-Just simple utils to **get environment variables** more easily. It is written in typescript with 100% unit test coverage.
+Just a simple utils used to **get environment variables** more easily. It is written in typescript with **100%** unit test coverage.
 
 ```
 npm i node-getenv --save
@@ -24,23 +24,23 @@ getEnvNum('UNSET_ENV', 4)  // 4 (default value)
 
 Get environment variate in number type.
 
-If the environment variate is undefined or not a valid number, return the default value if possible.
+If the environment variate is undefined or not a valid number, return the default value.
 
 **getEnvStr(key, defaults)**
 
 Get environment variate in string type.
 
-If the environment variate is undefined, return the default value if possible.
+If the environment variate is undefined, return the default value.
 
 **getEnvBool(key, defaults)**
 
-Get environment variate in boolean type, supported values **withou case sensitive**:
+Get environment variate in boolean type, supported values **without case sensitive**:
 
 - Truly: `true`, `yes`, `on`, `open`, `t`, `y`.
 
 - Falsely: `false`, `no`, `off`, `close`, `f`, `n`.
 
-If the environment variate is undefined or unsupported, return the default value if possible.
+If the environment variate is undefined or unsupported, return the default value.
 
 ---------------------------------------
 
