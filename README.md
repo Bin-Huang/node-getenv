@@ -36,9 +36,9 @@ If the environment variate is undefined, return the default value.
 
 Get environment variate in boolean type, supported values **without case sensitive**:
 
-- Truly: `true`, `yes`, `on`, `open`, `t`, `y`.
+- Truly: `true`, `yes`, `on`, `open`, `t`, `y`, `1`.
 
-- Falsely: `false`, `no`, `off`, `close`, `f`, `n`.
+- Falsely: `false`, `no`, `off`, `close`, `f`, `n`, `0`.
 
 If the environment variate is undefined or unsupported, return the default value.
 

@@ -1,6 +1,6 @@
 /**
  * Get environment variate in number type.
- * If the environment variate is undefined or not a valid number, return the default value if possible.
+ * If the environment variate is undefined or not a valid number, return the default value.
  * @param name Environment variate
  * @param defaults (Optional) Default value
  */
@@ -17,7 +17,7 @@ export function getEnvNum(name: string, defaults?: number): number | undefined {
 
 /**
  * Get environment variate in string type.
- * If the environment variate is undefined, return the default value if possible.
+ * If the environment variate is undefined, return the default value.
  * @param name Environment variate
  * @param defaults (Optional) Default value
  */
@@ -32,10 +32,10 @@ export function getEnvStr(name: string, defaults?: string): string | undefined {
 }
 
 /**
- * Get environment variate in boolean type, supported values withou case sensitive:
- *   Truly: 'true', 'yes', 'on', 'open', 't', 'y'.
- *   Falsely: 'false', 'no', 'off', 'close', 'f', 'n'.
- * If the environment variate is undefined or unsupported, return the default value if possible.
+ * Get environment variate in boolean type, supported values without case sensitive:
+ *   Truly: 'true', 'yes', 'on', 'open', 't', 'y', '1'.
+ *   Falsely: 'false', 'no', 'off', 'close', 'f', 'n', '0'.
+ * If the environment variate is undefined or unsupported, return the default value.
  * @param name Environment variate
  * @param defaults (Optional) Default value
  */
@@ -53,6 +53,7 @@ export function getEnvBool(name: string, defaults?: boolean): boolean | undefine
     case 'OPEN':
     case 'T':
     case 'Y':
+    case '1':
       return true
     case 'FALSE':
     case 'NO':
@@ -60,6 +61,7 @@ export function getEnvBool(name: string, defaults?: boolean): boolean | undefine
     case 'CLOSE':
     case 'F':
     case 'N':
+    case '0':
       return false
     default:
       return defaults
