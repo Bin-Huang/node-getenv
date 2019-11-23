@@ -11,7 +11,8 @@
   "types": "./dist/src/index.d.ts",
   "scripts": {
     "compile": "rm -rf dist && tsc",
-    "test": "tsc && ava"
+    "test": "npm run compile && ava",
+    "prepublish": "npm run test"
   },
   "devDependencies": {
     "@types/node": "^12.6.8",
