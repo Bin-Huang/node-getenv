@@ -67,3 +67,27 @@ export function getEnvBool(name: string, defaults?: boolean): boolean | undefine
       return defaults
   }
 }
+
+type Binded<T> = {
+  [P in keyof T]: T[P] extends undefined ? string | undefined : T[P]
+};
+
+export function bindEnv<T>(defaultEnvs: T): Binded<T> {
+  for (const name of Object.keys(defaultEnvs)) {
+    const defaultValue = defaultEnvs[name]
+    switch (typeof defaultValue) {
+      case 'boolean':
+        defaultEnvs[name] = getEnvBool(name, defaultValue)
+        break;
+      case 'number':
+        defaultEnvs[name] = getEnvNum(name, defaultValue)
+        break;
+      case 'string':
+        defaultEnvs[name] = getEnvStr(name, defaultValue)
+        break;
+      default:
+        defaultEnvs[name] = getEnvStr(name)
+    }
+  }
+  return defaultEnvs as Binded<T>
+}

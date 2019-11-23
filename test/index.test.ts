@@ -1,5 +1,5 @@
 import test from 'ava'
-import { getEnvBool, getEnvNum, getEnvStr } from '../src/index'
+import { getEnvBool, getEnvNum, getEnvStr, bindEnv } from '../src/index'
 
 test.serial('Test function getEnvNum', t => {
   const key = 'TEST_GET_ENV_NUM'
@@ -80,4 +80,35 @@ test.serial('Test function getEnvBool', t => {
   process.env[key] = 'other_value'
   t.is(getEnvBool(key), undefined)
   t.is(getEnvBool(key, true), true)
+})
+
+
+test.serial('Test function bindEnv', t => {
+  process.env['bindEnv_1'] = '1'
+  process.env['bindEnv_a'] = 'a'
+  process.env['bindEnv_t'] = 'true'
+  process.env['bindEnv_u'] = 'hello'
+
+  const envs = bindEnv({
+    bindEnv_1: 999999999999,
+    bindEnv_2: 999999999999,
+    bindEnv_a: 'zzzzzzzzzzz',
+    bindEnv_b: 'zzzzzzzzzzz',
+    bindEnv_t: false,
+    bindEnv_f: false,
+    bindEnv_u: undefined,
+  })
+
+  t.deepEqual(
+    envs,
+    {
+      bindEnv_1: 1,
+      bindEnv_2: 999999999999,  // default value
+      bindEnv_a: 'a',
+      bindEnv_b: 'zzzzzzzzzzz', // default value
+      bindEnv_t: true,
+      bindEnv_f: false, // default value
+      bindEnv_u: 'hello',
+    },
+  )
 })

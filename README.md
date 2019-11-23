@@ -1,23 +1,34 @@
-Just a simple utils used to **get environment variables** more easily. It is written in typescript with **100%** unit test coverage.
+Get and parse environment variables more easily. It is written in typescript with **100%** unit test coverage.
 
 ```
 npm i node-getenv --save
 ```
 
 ```javascript
-const { getEnvNum, getEnvBool, getEnvStr } = require('node-getenv')
+const { getEnvNum, getEnvBool, getEnvStr, bindEnv } = require('node-getenv')
 
-// export PORT=8080
-getEnvNum('PORT')  // 8080
+// PORT=8080
+getEnvNum('PORT')  // 8080 (number)
 
-// export CONSUMER_ON=yes
+
+// CONSUMER_ON=on
 getEnvBool('CONSUMER_ON')  // true
 
-// export DEBUG=controller
+
+// DEBUG=controller
 getEnvStr('DEBUG')  // 'controller'
 
 
-getEnvNum('UNSET_ENV', 4)  // 4 (default value)
+getEnvNum('UNDEFINED_ENV', 4)  // 4 (default value)
+
+
+// CONCURRENCY=3
+const envs = bindEnv({
+  CONCURRENCY: 10,  // default value 10
+  LOG_LEVEL: 'debug', // default value 'debug'
+})
+console.log(envs.CONCURRENCY) // 3
+console.log(envs.LOG_LEVEL) // 'debug' (default value)
 ```
 
 **getEnvNum(key, defaults)**
@@ -41,6 +52,10 @@ Get environment variate in boolean type, supported values **without case sensiti
 - Falsely: `false`, `no`, `off`, `close`, `f`, `n`, `0`.
 
 If the environment variate is undefined or unsupported, return the default value.
+
+**bindEnv(defaultValues)**
+
+Bind environment variates with default values, then returns them. It has no effect on real environmental variables (in `process.env`).
 
 ---------------------------------------
 
