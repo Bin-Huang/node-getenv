@@ -1,7 +1,7 @@
 {
   "name": "node-getenv",
   "author": "Bin Huang(tohuangbin@gmail.com)",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "Just `getenv()` in nodejs but more helpful",
   "repository": "Bin-Huang/node-getenv",
   "homepage": "https://github.com/Bin-Huang/node-getenv",
