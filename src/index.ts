@@ -32,6 +32,22 @@ export function getEnvStr(name: string, defaults?: string): string | undefined {
 }
 
 /**
+ * Get environment variate in string type.
+ * If the environment variate is undefined, return the default value.
+ * @param name Environment variate
+ * @param defaults (Optional) Default value
+ */
+export function getEnvStrEnum<T>(name: string): T | undefined
+export function getEnvStrEnum<T>(name: string, defaults: T): T
+export function getEnvStrEnum<T>(name: string, defaults?: T): T | undefined {
+  const v = process.env[name]
+  if (v === undefined) {
+    return defaults
+  }
+  return v as any
+}
+
+/**
  * Get environment variate in boolean type, supported values without case sensitive:
  *   Truly: 'true', 'yes', 'on', 'open', 't', 'y', '1'.
  *   Falsely: 'false', 'no', 'off', 'close', 'f', 'n', '0'.

@@ -1,5 +1,5 @@
 import test from 'ava'
-import { getEnvBool, getEnvNum, getEnvStr, bindEnv } from '../src/index'
+import { getEnvBool, getEnvNum, getEnvStr, getEnvStrEnum, bindEnv } from '../src/index'
 
 test.serial('Test function getEnvNum', t => {
   const key = 'TEST_GET_ENV_NUM'
@@ -29,6 +29,17 @@ test.serial('Test function getEnvStr', t => {
   process.env[key] = 'b'
   t.is(getEnvStr(key), 'b')
   t.is(getEnvStr(key, 'a'), 'b')
+})
+
+test.serial('Test function getEnvStrEnum', t => {
+  const key = 'TEST_GET_ENV_STR_ENUM'
+
+  t.is(getEnvStrEnum<'a' | 'b'>(key), undefined)
+  t.is(getEnvStrEnum<'a' | 'b'>(key, 'a'), 'a')
+
+  process.env[key] = 'b'
+  t.is(getEnvStrEnum<'a' | 'b'>(key), 'b')
+  t.is(getEnvStrEnum<'a' | 'b'>(key, 'a'), 'b')
 })
 
 test.serial('Test function getEnvBool', t => {
