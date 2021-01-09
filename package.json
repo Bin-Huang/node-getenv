@@ -1,11 +1,15 @@
 {
   "name": "node-getenv",
   "author": "Bin Huang(tohuangbin@gmail.com)",
-  "version": "1.5.0",
+  "version": "2.0.0",
   "description": "Just `getenv()` in nodejs but more helpful",
   "repository": "Bin-Huang/node-getenv",
   "homepage": "https://github.com/Bin-Huang/node-getenv",
-	"keywords": [ "getenv", "env", "nodejs" ],
+  "keywords": [
+    "getenv",
+    "env",
+    "nodejs"
+  ],
   "license": "MIT",
   "main": "./dist/src/index.js",
   "types": "./dist/src/index.d.ts",
