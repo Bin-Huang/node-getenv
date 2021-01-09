@@ -1,3 +1,5 @@
+import { NeedEnvError } from './errors'
+
 /**
  * Get environment variate in number type.
  * If the environment variate is undefined or not a valid number, return the default value.
@@ -106,4 +108,58 @@ export function bindEnv<T>(defaultEnvs: T): Binded<T> {
     }
   }
   return defaultEnvs as Binded<T>
+}
+
+export function requireStr(env: string): string {
+    const v = getStr(env)
+    if (v === undefined) {
+        throw new NeedEnvError(env)
+    }
+    return v
+}
+
+export function requireNum(env: string): number {
+    const v = getNum(env)
+    if (v === undefined) {
+        throw new NeedEnvError(env)
+    }
+    return v
+}
+
+export function requireBool(env: string): boolean {
+    const v = getBool(env)
+    if (v === undefined) {
+        throw new NeedEnvError(env)
+    }
+    return v
+}
+
+export function requireStrOrExit(env: string): string {
+    try {
+        const v = requireStr(env)
+        return v
+    } catch (e) {
+        console.log(e.message)
+        process.exit(1)
+    }
+}
+
+export function requireNumOrExit(env: string): number {
+    try {
+        const v = requireNum(env)
+        return v
+    } catch (e) {
+        console.log(e.message)
+        process.exit(1)
+    }
+}
+
+export function requireBoolOrExit(env: string): Boolean {
+    try {
+        const v = requireBool(env)
+        return v
+    } catch (e) {
+        console.log(e.message)
+        process.exit(1)
+    }
 }

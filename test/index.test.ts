@@ -1,7 +1,7 @@
 import test from 'ava'
 import { getBool, getNum, getStr, getStrEnum, bindEnv } from '../src/index'
 
-test.serial('Test function getEnvNum', t => {
+test.serial('test getNum', t => {
   const key = 'TEST_GET_ENV_NUM'
 
   t.is(getNum(key), undefined)
@@ -20,7 +20,7 @@ test.serial('Test function getEnvNum', t => {
   t.is(getNum(key, 2), 2)
 })
 
-test.serial('Test function getEnvStr', t => {
+test.serial('test getStr', t => {
   const key = 'TEST_GET_ENV_STR'
 
   t.is(getStr(key), undefined)
@@ -31,7 +31,7 @@ test.serial('Test function getEnvStr', t => {
   t.is(getStr(key, 'a'), 'b')
 })
 
-test.serial('Test function getEnvStrEnum', t => {
+test.serial('test getStrEnum', t => {
   const key = 'TEST_GET_ENV_STR_ENUM'
 
   t.is(getStrEnum<'a' | 'b'>(key), undefined)
@@ -42,7 +42,7 @@ test.serial('Test function getEnvStrEnum', t => {
   t.is(getStrEnum<'a' | 'b'>(key, 'a'), 'b')
 })
 
-test.serial('Test function getEnvBool', t => {
+test.serial('test getBool', t => {
   const key = 'TEST_GET_ENV_BOOL'
 
   t.is(getBool(key), undefined)
@@ -94,7 +94,7 @@ test.serial('Test function getEnvBool', t => {
 })
 
 
-test.serial('Test function bindEnv', t => {
+test.serial('test bindEnv', t => {
   process.env['bindEnv_1'] = '1'
   process.env['bindEnv_a'] = 'a'
   process.env['bindEnv_t'] = 'true'
