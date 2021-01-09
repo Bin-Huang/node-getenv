@@ -1,96 +1,97 @@
 import test from 'ava'
-import { getBool, getNum, getStr, getStrEnum, bindEnv } from '../src/index'
+import { NeedEnvError } from '../src/errors'
+import * as env from '../src/index'
 
 test.serial('test getNum', t => {
   const key = 'TEST_GET_ENV_NUM'
 
-  t.is(getNum(key), undefined)
-  t.is(getNum(key, 2), 2)
+  t.is(env.getNum(key), undefined)
+  t.is(env.getNum(key, 2), 2)
 
   process.env[key] = '1'
-  t.is(getNum(key), 1)
-  t.is(getNum(key, 2), 1)
+  t.is(env.getNum(key), 1)
+  t.is(env.getNum(key, 2), 1)
 
   process.env[key] = '0'
-  t.is(getNum(key), 0)
-  t.is(getNum(key, 2), 0)
+  t.is(env.getNum(key), 0)
+  t.is(env.getNum(key, 2), 0)
 
   process.env[key] = 'other_value'
-  t.is(getNum(key), undefined)
-  t.is(getNum(key, 2), 2)
+  t.is(env.getNum(key), undefined)
+  t.is(env.getNum(key, 2), 2)
 })
 
 test.serial('test getStr', t => {
   const key = 'TEST_GET_ENV_STR'
 
-  t.is(getStr(key), undefined)
-  t.is(getStr(key, 'a'), 'a')
+  t.is(env.getStr(key), undefined)
+  t.is(env.getStr(key, 'a'), 'a')
 
   process.env[key] = 'b'
-  t.is(getStr(key), 'b')
-  t.is(getStr(key, 'a'), 'b')
+  t.is(env.getStr(key), 'b')
+  t.is(env.getStr(key, 'a'), 'b')
 })
 
 test.serial('test getStrEnum', t => {
   const key = 'TEST_GET_ENV_STR_ENUM'
 
-  t.is(getStrEnum<'a' | 'b'>(key), undefined)
-  t.is(getStrEnum<'a' | 'b'>(key, 'a'), 'a')
+  t.is(env.getStrEnum<'a' | 'b'>(key), undefined)
+  t.is(env.getStrEnum<'a' | 'b'>(key, 'a'), 'a')
 
   process.env[key] = 'b'
-  t.is(getStrEnum<'a' | 'b'>(key), 'b')
-  t.is(getStrEnum<'a' | 'b'>(key, 'a'), 'b')
+  t.is(env.getStrEnum<'a' | 'b'>(key), 'b')
+  t.is(env.getStrEnum<'a' | 'b'>(key, 'a'), 'b')
 })
 
 test.serial('test getBool', t => {
   const key = 'TEST_GET_ENV_BOOL'
 
-  t.is(getBool(key), undefined)
-  t.is(getBool(key, true), true)
+  t.is(env.getBool(key), undefined)
+  t.is(env.getBool(key, true), true)
 
   process.env[key] = 'true'
-  t.is(getBool(key), true)
-  t.is(getBool(key, false), true)
+  t.is(env.getBool(key), true)
+  t.is(env.getBool(key, false), true)
 
   process.env[key] = 'Open'
-  t.is(getBool(key), true)
-  t.is(getBool(key, false), true)
+  t.is(env.getBool(key), true)
+  t.is(env.getBool(key, false), true)
 
   process.env[key] = 'YES'
-  t.is(getBool(key), true)
-  t.is(getBool(key, false), true)
+  t.is(env.getBool(key), true)
+  t.is(env.getBool(key, false), true)
 
   process.env[key] = 'T'
-  t.is(getBool(key), true)
-  t.is(getBool(key, false), true)
+  t.is(env.getBool(key), true)
+  t.is(env.getBool(key, false), true)
 
   process.env[key] = 'y'
-  t.is(getBool(key), true)
-  t.is(getBool(key, false), true)
+  t.is(env.getBool(key), true)
+  t.is(env.getBool(key, false), true)
 
   process.env[key] = 'false'
-  t.is(getBool(key), false)
-  t.is(getBool(key, true), false)
+  t.is(env.getBool(key), false)
+  t.is(env.getBool(key, true), false)
 
   process.env[key] = 'CLOSE'
-  t.is(getBool(key), false)
-  t.is(getBool(key, true), false)
+  t.is(env.getBool(key), false)
+  t.is(env.getBool(key, true), false)
 
   process.env[key] = 'no'
-  t.is(getBool(key), false)
-  t.is(getBool(key, true), false)
+  t.is(env.getBool(key), false)
+  t.is(env.getBool(key, true), false)
 
   process.env[key] = 'f'
-  t.is(getBool(key), false)
-  t.is(getBool(key, true), false)
+  t.is(env.getBool(key), false)
+  t.is(env.getBool(key, true), false)
 
   process.env[key] = 'n'
-  t.is(getBool(key), false)
-  t.is(getBool(key, true), false)
+  t.is(env.getBool(key), false)
+  t.is(env.getBool(key, true), false)
 
   process.env[key] = 'other_value'
-  t.is(getBool(key), undefined)
-  t.is(getBool(key, true), true)
+  t.is(env.getBool(key), undefined)
+  t.is(env.getBool(key, true), true)
 })
 
 
@@ -100,7 +101,7 @@ test.serial('test bindEnv', t => {
   process.env['bindEnv_t'] = 'true'
   process.env['bindEnv_u'] = 'hello'
 
-  const envs = bindEnv({
+  const envs = env.bindEnv({
     bindEnv_1: 999999999999,
     bindEnv_2: 999999999999,
     bindEnv_a: 'zzzzzzzzzzz',
@@ -122,4 +123,83 @@ test.serial('test bindEnv', t => {
       bindEnv_u: 'hello',
     },
   )
+})
+
+test.serial('test requireNum', t => {
+  const key = 'TEST_REQUIRENUM'
+  const method = env.requireNum
+
+  t.throws(() => method(key), NeedEnvError)
+
+  process.env[key] = '1'
+  t.notThrows(() => method(key))
+  t.is(method(key), 1)
+
+  process.env[key] = '0'
+  t.notThrows(() => method(key))
+  t.is(method(key), 0)
+
+  process.env[key] = 'other_value'
+  t.throws(() => method(key), NeedEnvError)
+})
+
+test.serial('test requireStr', t => {
+  const key = 'TEST_REQUIRESTR'
+  const method = env.requireStr
+
+  t.throws(() => method(key), NeedEnvError)
+
+  process.env[key] = 'b'
+  t.notThrows(() => method(key))
+  t.is(method(key), 'b')
+})
+
+test.serial('test requireBool', t => {
+  const key = 'TEST_REQUIREBOOL'
+  const method = env.requireBool
+
+  t.throws(() => method(key), NeedEnvError)
+
+  process.env[key] = 'true'
+  t.notThrows(() => method(key))
+  t.is(method(key), true)
+
+  process.env[key] = 'Open'
+  t.notThrows(() => method(key))
+  t.is(method(key), true)
+
+  process.env[key] = 'YES'
+  t.notThrows(() => method(key))
+  t.is(method(key), true)
+
+  process.env[key] = 'T'
+  t.notThrows(() => method(key))
+  t.is(method(key), true)
+
+  process.env[key] = 'y'
+  t.notThrows(() => method(key))
+  t.is(method(key), true)
+
+  process.env[key] = 'false'
+  t.notThrows(() => method(key))
+  t.is(method(key), false)
+
+  process.env[key] = 'CLOSE'
+  t.notThrows(() => method(key))
+  t.is(method(key), false)
+
+  process.env[key] = 'no'
+  t.notThrows(() => method(key))
+  t.is(method(key), false)
+
+  process.env[key] = 'f'
+  t.notThrows(() => method(key))
+  t.is(method(key), false)
+
+  process.env[key] = 'n'
+  t.notThrows(() => method(key))
+  t.is(method(key), false)
+
+  process.env[key] = 'other_value'
+  t.throws(() => method(key), NeedEnvError)
 })
