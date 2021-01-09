@@ -4,9 +4,9 @@
  * @param name Environment variate
  * @param defaults (Optional) Default value
  */
-export function getEnvNum(name: string): number | undefined
-export function getEnvNum(name: string, defaults: number): number
-export function getEnvNum(name: string, defaults?: number): number | undefined {
+export function getNum(name: string): number | undefined
+export function getNum(name: string, defaults: number): number
+export function getNum(name: string, defaults?: number): number | undefined {
   const v = process.env[name]
   if (v === undefined) {
     return defaults
@@ -21,9 +21,9 @@ export function getEnvNum(name: string, defaults?: number): number | undefined {
  * @param name Environment variate
  * @param defaults (Optional) Default value
  */
-export function getEnvStr(name: string): string | undefined
-export function getEnvStr(name: string, defaults: string): string
-export function getEnvStr(name: string, defaults?: string): string | undefined {
+export function getStr(name: string): string | undefined
+export function getStr(name: string, defaults: string): string
+export function getStr(name: string, defaults?: string): string | undefined {
   const v = process.env[name]
   if (v === undefined) {
     return defaults
@@ -37,9 +37,9 @@ export function getEnvStr(name: string, defaults?: string): string | undefined {
  * @param name Environment variate
  * @param defaults (Optional) Default value
  */
-export function getEnvStrEnum<T>(name: string): T | undefined
-export function getEnvStrEnum<T>(name: string, defaults: T): T
-export function getEnvStrEnum<T>(name: string, defaults?: T): T | undefined {
+export function getStrEnum<T>(name: string): T | undefined
+export function getStrEnum<T>(name: string, defaults: T): T
+export function getStrEnum<T>(name: string, defaults?: T): T | undefined {
   const v = process.env[name]
   if (v === undefined) {
     return defaults
@@ -55,9 +55,9 @@ export function getEnvStrEnum<T>(name: string, defaults?: T): T | undefined {
  * @param name Environment variate
  * @param defaults (Optional) Default value
  */
-export function getEnvBool(name: string): boolean | undefined
-export function getEnvBool(name: string, defaults: boolean): boolean
-export function getEnvBool(name: string, defaults?: boolean): boolean | undefined {
+export function getBool(name: string): boolean | undefined
+export function getBool(name: string, defaults: boolean): boolean
+export function getBool(name: string, defaults?: boolean): boolean | undefined {
   const v = process.env[name]
   if (v === undefined) {
     return defaults
@@ -93,16 +93,16 @@ export function bindEnv<T>(defaultEnvs: T): Binded<T> {
     const defaultValue = defaultEnvs[name]
     switch (typeof defaultValue) {
       case 'boolean':
-        defaultEnvs[name] = getEnvBool(name, defaultValue)
+        defaultEnvs[name] = getBool(name, defaultValue)
         break;
       case 'number':
-        defaultEnvs[name] = getEnvNum(name, defaultValue)
+        defaultEnvs[name] = getNum(name, defaultValue)
         break;
       case 'string':
-        defaultEnvs[name] = getEnvStr(name, defaultValue)
+        defaultEnvs[name] = getStr(name, defaultValue)
         break;
       default:
-        defaultEnvs[name] = getEnvStr(name)
+        defaultEnvs[name] = getStr(name)
     }
   }
   return defaultEnvs as Binded<T>
