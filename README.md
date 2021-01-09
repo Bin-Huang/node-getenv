@@ -1,49 +1,40 @@
-Get and parse environment variables more easily. It is written in typescript with **100%** unit test coverage.
+Get and parse environment variables more easily.
 
 ```
 npm i node-getenv --save
 ```
 
 ```javascript
-const { getEnvNum, getEnvBool, getEnvStr, bindEnv } = require('node-getenv')
+const env = require('node-getenv')
 
-// PORT=8080
-getEnvNum('PORT')  // 8080 (number)
-
-
-// CONSUMER_ON=on
-getEnvBool('CONSUMER_ON')  // true
+// PORT=8080 node index.js
+const port = env.getNum('PORT')  // 8080 (number)
 
 
-// DEBUG=controller
-getEnvStr('DEBUG')  // 'controller'
+// CONSUMER_ON=on node index.js
+env.getBool('CONSUMER_ON')  // true
 
+// node index.js
+env.getNum('CONCURRENCY', 4)  // 4 (default value)
 
-getEnvNum('UNDEFINED_ENV', 4)  // 4 (default value)
-
-
-// CONCURRENCY=3
-const envs = bindEnv({
-  CONCURRENCY: 10,  // default value 10
-  LOG_LEVEL: 'debug', // default value 'debug'
-})
-console.log(envs.CONCURRENCY) // 3
-console.log(envs.LOG_LEVEL) // 'debug' (default value)
+// node index.js
+env.requireNum('CONCURRENCY')   // throw error
+env.requireNumOrExit('CONCURRENCY')   // log error, then process exit
 ```
 
-**getEnvNum(key, defaults)**
+**getNum(key, defaults)**
 
 Get environment variate in number type.
 
 If the environment variate is undefined or not a valid number, return the default value.
 
-**getEnvStr(key, defaults)**
+**getStr(key, defaults)**
 
 Get environment variate in string type.
 
 If the environment variate is undefined, return the default value.
 
-**getEnvStrEnum(key, defaults)**
+**getStrEnum(key, defaults)**
 
 > Same as `getEnvStr`, but more useful in typescript when handle string-enum values.
 
@@ -51,7 +42,7 @@ Get environment variate in string type.
 
 If the environment variate is undefined, return the default value.
 
-**getEnvBool(key, defaults)**
+**getBool(key, defaults)**
 
 Get environment variate in boolean type, supported values **without case sensitive**:
 
