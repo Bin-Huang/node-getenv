@@ -30,17 +30,9 @@ test.serial('test getStr', t => {
   process.env[key] = 'b'
   t.is(env.getStr(key), 'b')
   t.is(env.getStr(key, 'a'), 'b')
-})
 
-test.serial('test getStrEnum', t => {
-  const key = 'TEST_GET_ENV_STR_ENUM'
-
-  t.is(env.getStrEnum<'a' | 'b'>(key), undefined)
-  t.is(env.getStrEnum<'a' | 'b'>(key, 'a'), 'a')
-
-  process.env[key] = 'b'
-  t.is(env.getStrEnum<'a' | 'b'>(key), 'b')
-  t.is(env.getStrEnum<'a' | 'b'>(key, 'a'), 'b')
+  let expect: 'a' | 'b' | 'c' | undefined = env.getStr<'a'|'b'|'c'>(key)
+  let expect2: 'a' | 'b' | 'c' = env.getStr<'a'|'b'|'c'>(key, 'a')
 })
 
 test.serial('test getBool', t => {
@@ -152,6 +144,8 @@ test.serial('test requireStr', t => {
   process.env[key] = 'b'
   t.notThrows(() => method(key))
   t.is(method(key), 'b')
+
+  let expect: 'a' | 'b' | 'c' = env.requireStr<'a'|'b'|'c'>(key)
 })
 
 test.serial('test requireBool', t => {

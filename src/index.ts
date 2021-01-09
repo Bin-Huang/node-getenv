@@ -23,6 +23,9 @@ export function getNum(name: string, defaults?: number): number | undefined {
  * @param name Environment variate
  * @param defaults (Optional) Default value
  */
+export function getStr<T extends string>(name: string): T | undefined
+export function getStr<T extends string>(name: string, defaults: T): T
+export function getStr<T extends string>(name: string, defaults?: T): T | undefined
 export function getStr(name: string): string | undefined
 export function getStr(name: string, defaults: string): string
 export function getStr(name: string, defaults?: string): string | undefined {
@@ -31,22 +34,6 @@ export function getStr(name: string, defaults?: string): string | undefined {
     return defaults
   }
   return v
-}
-
-/**
- * Get environment variate in string type.
- * If the environment variate is undefined, return the default value.
- * @param name Environment variate
- * @param defaults (Optional) Default value
- */
-export function getStrEnum<T>(name: string): T | undefined
-export function getStrEnum<T>(name: string, defaults: T): T
-export function getStrEnum<T>(name: string, defaults?: T): T | undefined {
-  const v = process.env[name]
-  if (v === undefined) {
-    return defaults
-  }
-  return v as any
 }
 
 /**
@@ -110,6 +97,7 @@ export function bindEnv<T>(defaultEnvs: T): Binded<T> {
   return defaultEnvs as Binded<T>
 }
 
+export function requireStr<T extends string>(env: string): T
 export function requireStr(env: string): string {
     const v = getStr(env)
     if (v === undefined) {
