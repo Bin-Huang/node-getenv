@@ -34,14 +34,6 @@ Get environment variate in string type.
 
 If the environment variate is undefined, return the default value.
 
-**getStrEnum(key, defaults)**
-
-> Same as `getEnvStr`, but more useful in typescript when handle string-enum values.
-
-Get environment variate in string type.
-
-If the environment variate is undefined, return the default value.
-
 **getBool(key, defaults)**
 
 Get environment variate in boolean type, supported values **without case sensitive**:
