@@ -2,7 +2,7 @@
   "name": "node-getenv",
   "author": "Bin Huang(tohuangbin@gmail.com)",
   "version": "2.0.0",
-  "description": "Just `getenv()` in nodejs but more helpful",
+  "description": "Get and parse environment variables more easily.",
   "repository": "Bin-Huang/node-getenv",
   "homepage": "https://github.com/Bin-Huang/node-getenv",
   "keywords": [
